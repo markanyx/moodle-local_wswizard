@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/wswizard/db" VERSION="2022071800" COMMENT="XMLDB file for Moodle local/wswizard"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+    <TABLES>
+        <TABLE NAME="local_wswizard_ws_role" COMMENT="Table holds the webservice role">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="webservice_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="role_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="local_wswizard_logs" COMMENT="Table that holds all logs">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="action" TYPE="char" LENGTH="1333" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="webservice_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="webservicename" TYPE="char" LENGTH="1333" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="20" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="createdby" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="username" TYPE="char" LENGTH="1333" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB>

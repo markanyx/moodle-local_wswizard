@@ -1,0 +1,265 @@
+<div class="container">
+    <nav>
+        <ul class="nav nav-tabs" role="tablist">
+            {{#service}}
+                <li class="nav-item">
+                    <a href="#nav-{{id}}" class="nav-link {{#activeTab}}active{{/activeTab}}" data-toggle="tab"
+                       role="tab" aria-selected="false"
+                    >{{name}}</a>
+                </li>
+            {{/service}}
+            <li class="nav-item">
+                <a class="nav-link" id="nav-createnew-tab" href="/local/wswizard/ws.php" aria-selected=""><i
+                        class="fa fa-solid fa-plus"></i> {{#str}}
+                    dashboard_ws_add_new, local_wswizard {{/str}}</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="tab-content">
+        {{#service}}
+            <div class="tab-pane {{#activeTab}}active{{/activeTab}}" id="nav-{{id}}" role="tabpanel">
+
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12 ">
+                                <span class="h1 text-justify">{{#str}}
+                                    dashboard_ws_name, local_wswizard {{/str}} {{name}}</span>
+                                <div class="w-100"><br></div>
+                                <span class="h4 text-justify">{{#str}}
+                                    dashboard_ws_shortname, local_wswizard {{/str}} {{shortname}}</span>
+
+                            </div>
+                            <div class="d-md-none col-sm-3 mt-sm-3 mb-sm-3"><br></div>
+                            <!-- adds spacing for when small screen -->
+                            <div class=" mb-2 col-md-4 col-sm-7 text-sm-left">
+                                <input class=" mb-2 enablewebserviceid{{id}} webservice_enable_button" type="checkbox"
+                                       {{#enabled}}checked{{/enabled}} data-toggle="toggle"
+                                       data-on="{{#str}}dashboard_ws_enabled, local_wswizard {{/str}}"
+                                       data-off="{{#str}}dashboard_ws_not_enabled, local_wswizard {{/str}}"
+                                data-onstyle="success" data-offstyle="danger"
+                                       data-width="240" data-size="lg">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-md-none col-sm-3"></div> <!-- adds spacing for when small screen &ndash;&gt;-->
+                    <div class="col-md-2 col-sm-3 mb-1">
+                        <button type="button" class=" mb-2 webserviceid{{id}} btn btn-outline-info button_size_half"
+                                onclick="location.href='{{edit_link}}?ws_id={{id}}'">
+                        <i class="fa fa-solid fa-pencil h4"></i>
+                        <span>{{#str}} dashboard_ws_edit, local_wswizard {{/str}}</span>
+                        </button>
+                    </div>
+                    <div class="col-md-2 col-sm-3">
+                        {{! DO NOT ADD CLASS IN THE FIRST INDEX}}
+                        {{! IT WILL BREAK THE AJAX CALL. ADD AT THE END  }}
+                        <button type="button"
+                                class=" mb-2 webserviceid{{id}} btn webservice_delete_button btn-outline-danger button_size_half"
+                                value="">
+                            <i class="fa fa-solid fa-trash h4"></i>
+                            <span>{{#str}} dashboard_ws_delete, local_wswizard {{/str}}</span>
+                        </button>
+                    </div>
+                </div> <!--end of the first row !-->
+                <br>
+                <div class="row"> <!-- row for webservice features -->
+                    <div class="col-md-4 col-sm-8">
+                        <div class="name_display_same_line">
+
+                            <h3 class="mb-2">{{#str}} dashboard_ws_can_upload, local_wswizard {{/str}}</h3>
+
+                            <input class=" mb-2 updateUploadFileswebserviceid{{id}} webservice_uploadfiles_button" type="checkbox"
+                                   {{#uploadfiles}}checked{{/uploadfiles}} data-toggle="toggle"
+                                   data-on="{{#str}}dashboard_ws_yes, local_wswizard {{/str}}"
+                                   data-off="{{#str}}dashboard_ws_no, local_wswizard {{/str}}"
+                                   data-onstyle="success" data-offstyle="danger"
+                                   data-width="100">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-10">
+                        <div class=" mb-2 name_display_same_line_no_jusitfy">
+                            <!--                             <div class="">-->
+                            <h3>{{#str}} dashboard_ws_authorised_users, local_wswizard {{/str}}</h3>
+
+                            <!--                                 If there are authenticated users, have the scroll display-->
+                            {{#hasAuthUsers}}
+                                <div class="addScroll ml-5 w-50">
+                                    {{#authUsers}}
+                                        <h4><a href="/user/profile.php?id={{userid}}">{{auth_username}}</a></h4>
+                                    {{/authUsers}}
+                                </div>
+                            {{/hasAuthUsers}}
+
+                            {{^hasAuthUsers}}<h3 class="text-danger ml-2">   {{#str}}
+                                dashboard_ws_no, local_wswizard {{/str}}</h3>{{/hasAuthUsers}}
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                </div> <!--end of the second row (upload,authorised)!-->
+
+                <div class="row"> <!-- row for webservice features 2 -->
+                    <div class="col-md-4 col-sm-8">
+                        <div class="name_display_same_line">
+                            <h3>{{#str}} dashboard_ws_can_download, local_wswizard {{/str}}</h3>
+
+                            <input class="downloadfileswebserviceid{{id}} webservice_downloadfiles_button" type="checkbox"
+                                   {{#downloadfiles}}checked{{/downloadfiles}} data-toggle="toggle"
+                                   data-on="{{#str}}dashboard_ws_yes, local_wswizard {{/str}}"
+                                   data-off="{{#str}}dashboard_ws_no, local_wswizard {{/str}}"
+                                   data-onstyle="success" data-offstyle="danger"
+                                   data-width="100">
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <div class="name_display_same_line">
+<!--                            <h3>{{! #str}} dashboard_ws_required_capability, local_wswizard {{! /str}}-->
+<!--                                {{#requiredcapability}}-->
+<!--                                    <span class="h4">{{requiredcapability}}</span>{{/requiredcapability}}-->
+<!--                                {{^requiredcapability}}<span class="text-danger">{{! #str}}-->
+<!--                                    dashboard_ws_none, local_wswizard {{! /str}}</span>{{/requiredcapability}}-->
+<!--                            </h3>-->
+                            <div class="h3">
+                                {{#str}} dashboard_ws_role, local_wswizard {{/str}}
+                                {{#role_name}}<a href="/admin/roles/define.php?action=view&roleid={{ws_role_id}}">{{role_name}}</a>{{/role_name}}
+                                {{^role_name}}None{{/role_name}}
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>  <!--end of the third row (download,capability)!-->
+                <br>
+
+                {{! Table token }}
+                <div class="name_display_same_line">
+                    <div class="h1">{{#str}} dashboard_token_title, local_wswizard {{/str}}</div>
+                    <a id="add_tokens_button" href="javascript:;" data-id="{{id}}">
+                        <i class="h4 fa fa-solid fa-plus"></i>
+                        <span class="h3">{{#str}}  dashboard_ws_add_new, local_wswizard {{/str}}</span>
+                    </a>
+                </div>
+                <div class="row">
+                    <table class="table table-bordered table-striped table-hover table-responsive-xl">
+                        <thead>
+                        <tr>
+                            <th class="border-right-0 border-bottom-1">{{#str}}
+                                dashboard_ws_token_table_column_token, local_wswizard {{/str}}</th>
+                            <th class="border-left-0"></th>
+                            <th>{{#str}} dashboard_ws_token_table_column_user, local_wswizard {{/str}}</th>
+                            <th>{{#str}} dashboard_ws_token_table_column_ip_restriction, local_wswizard {{/str}}</th>
+                            <th>{{#str}} dashboard_ws_token_table_column_valid_until, local_wswizard {{/str}}</th>
+                            <th>{{#str}} dashboard_ws_token_table_column_creator, local_wswizard {{/str}}</th>
+                            <th>{{#str}} dashboard_ws_token_table_column_actions, local_wswizard {{/str}}</th>
+                        </tr>
+                        </thead>
+                        <tbody class="w-auto">
+                        {{#alltokens}}
+                            <tr>
+                                <th scope="row" id="copyText"
+                                    class="colspan=2 name_display_same_line border-0 text-wrap wswizard_smaller_text">{{token}}
+                                    <button class="copyText" onclick="copyTextFromElement(this,'{{token}}')">
+                                        <i class="fa fa-solid fa-clipboard"></i>
+                                    </button>
+                                </th>
+                                <td class="border-0"></td>
+                                <td><a href="/user/profile.php?id={{userid}}">{{username}}</a></td>
+                                <td>
+                                    {{#iprestriction}}{{iprestriction}}{{/iprestriction}}
+                                    {{^iprestriction}}<span class="text-danger">{{#str}}
+                                        dashboard_ws_none, local_wswizard {{/str}}</span>{{/iprestriction}}
+                                </td>
+                                <td>{{validuntil}}</td>
+                                <td><a href="/user/profile.php?id={{creatorid}}">{{creatorName}}</a></td>
+                                <td class="text-center">
+                                    {{! DO NOT ADD CLASS IN THE FIRST INDEX}}
+                                    {{! IT WILL BREAK THE AJAX CALL. ADD AT THE END  }}
+                                    <button type="button"
+                                            class="tokenid{{id}} tokenText{{username}} btn token_delete_button"
+                                            value="">
+                                        <i class="fa fa-solid fa-trash text-danger"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {{/alltokens}}
+                        {{^alltokens}}
+                            <tr>
+                                <td colspan="7" class="text-center text-danger">{{#str}}
+                                    dashboard_ws_token_table_no_data, local_wswizard {{/str}}</td>
+                            </tr>
+
+                        {{/alltokens}}
+                        </tbody>
+                    </table>
+
+
+                </div> <!-- end of tokens row !-->
+                <br>
+
+
+                {{! Table Function }}
+                <div class="name_display_same_line">
+                    <div class="h1">{{#str}} dashboard_ws_functions, local_wswizard {{/str}}</div>
+                    <a id="add_function_button" href="javascript:;" data-id="{{id}}" data-roleid="{{ws_role_id}}">
+                        <i class="h4 fa fa-solid fa-plus"></i>
+                        <span class="h3">{{#str}}  dashboard_ws_add_new, local_wswizard {{/str}}</span>
+                    </a>
+                </div>
+                <div class="row">
+                    <table class="table table-bordered table-striped table-hover table-responsive-xl">
+                        <thead>
+                        <tr>
+                            <th style="width: 35%">{{#str}}
+                                dashboard_ws_functions_table_column_function, local_wswizard {{/str}}</th>
+                            <th style="width: 35%">{{#str}}
+                                dashboard_ws_functions_table_column_description, local_wswizard {{/str}}</th>
+                            <th style="width: 20%">{{#str}}
+                                dashboard_ws_functions_table_column_capabilities, local_wswizard {{/str}}</th>
+                            <th style="width: 10%">{{#str}}
+                                dashboard_ws_functions_table_column_actions, local_wswizard {{/str}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#allFunctions}}
+                            <tr>
+                                <td class="text-break">{{functionname}}</td>
+                                <td class="text-break">
+                                    {{#description}}{{description}}{{/description}}
+                                    {{^description}}
+                                        <span>{{#str}} dashboard_ws_none, local_wswizard {{/str}}</span>{{/description}}
+                                </td>
+                                <td class="text-break">
+                                    {{#capabilities}}{{capabilities}}{{/capabilities}}
+                                    {{^capabilities}}<span>{{#str}}
+                                        dashboard_ws_none, local_wswizard {{/str}}</span>{{/capabilities}}
+                                </td>
+                                <td class="text-center">
+
+                                    {{! DO NOT ADD CLASS IN THE FIRST OR SECOND INDEX}}
+                                    {{! IT WILL BREAK THE AJAX CALL. ADD AT THE END  }}
+                                    <button type="button"
+                                            class="functionid{{id}} functionname{{functionname}} tokenText{{username}} btn function_delete_button"
+                                            value="">
+                                        <i class="fa fa-solid fa-trash text-danger"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {{/allFunctions}}
+                        {{^allFunctions}}
+                            <tr>
+                                <td colspan="4" class="text-center text-danger">{{#str}}
+                                    dashboard_ws_functions_table_no_data, local_wswizard {{/str}}</td>
+                            </tr>
+
+                        {{/allFunctions}}
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- end of tab !-->
+        {{/service}}
+        {{^service}}
+            <h2 id="no-ws">{{#str}}  no_ws_found, local_wswizard {{/str}}</h2>
+        {{/service}}
+    </div> <!-- end of nav content !-->
+</div> <!-- end of container  !-->
