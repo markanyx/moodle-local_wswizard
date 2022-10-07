@@ -18,8 +18,7 @@
  * *************************************************************************
  * *                     Web Service Wizard                               **
  * *************************************************************************
- * @package     local                                                     **
- * @subpackage  wswizard                                                  **
+ * @package     local_wswizard                                            **
  * @name        Web Service Wizard                                        **
  * @copyright   Markanyx Solutions Inc.                                   **
  * @link                                                                  **
@@ -35,15 +34,16 @@ namespace local_wswizard;
 // TO DO: Change this into a Singleton and get rid of static functions.
 use core\notification;
 
-class Base {
 
+class Base {
     /**
-     * Creates the Moodle page header
+     * Creates the Moodle page header.
      *
      * @param string            $url         Current page url
      * @param string            $pagetitle   Page title
      * @param string            $pageheading Page heading (Note hard coded to site fullname)
      * @param array             $context     The page context (SYSTEM, COURSE, MODULE etc)
+     * @param string            $pagelayout  Page layout (set to admin by default)
      *
      * @return HTML Contains page information and loads all Javascript and CSS
      * @global \moodle_database $DB
@@ -67,6 +67,7 @@ class Base {
     }
 
     /**
+     * Gets all webservice users from database.
      * @return array
      * @throws \dml_exception
      */
@@ -83,7 +84,8 @@ class Base {
     // Modifed by Karl Thibaudeau, only will return roles with web service protocol capabilities.
 
     /**
-     * @return array|void
+     * Gets all the roles for active webservices.
+     * @return array[]|void
      */
     public function get_roles_for_active_webservices() {
         try {
@@ -112,6 +114,7 @@ class Base {
     }
 
     /**
+     * Gets all the protocols for the webservice.
      * @return string[]
      */
     public function get_webservice_protocols() {
@@ -122,7 +125,8 @@ class Base {
     }
 
     /**
-     * @return array
+     * Gets list of all available protocols.
+     * @return array[]
      */
     public function get_protocols() {
         $protocolsavailable = \core_component::get_plugin_list('webservice');
@@ -135,7 +139,8 @@ class Base {
     }
 
     /**
-     * @return array
+     * Gets all capabilities.
+     * @return array[]
      */
     public function get_capabilities() {
         $capabilities = get_all_capabilities();
@@ -148,6 +153,7 @@ class Base {
     }
 
     /**
+     * Gets a list of external functions and its capabilities.
      * @return array
      * @throws \dml_exception
      */
@@ -164,6 +170,7 @@ class Base {
 
 
     /**
+     * Returns the user's info based on the parameter.
      * @param $id
      * @param $username
      * @param $idnumber
@@ -188,6 +195,7 @@ class Base {
 
 
     /**
+     * Gets a user's fullname from the id.
      * @param $userid
      * @return string
      * @throws \dml_exception
@@ -200,6 +208,7 @@ class Base {
 
 
     /**
+     * Gets the categories of capabilities.
      * @return void
      */
     public function get_capability_categories() {

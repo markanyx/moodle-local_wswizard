@@ -1,56 +1,45 @@
+**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
 
-Short description 
------------------------------------------------------------------------------------------------
-The web service wizard objective is to streamline the access and management of web service integration to Moodle.  
+When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
 
-Full description 
------------------------------------------------------------------------------------------------
-The webservice wizard enhances the Moodle webservice management experience in 3 main ways: 
+*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
 
-Reducing the time it takes to add a web service by reducing the number of clicks and pages an administrator needs to visit to complete the new web service setup 
+---
 
-Centralizing all the steps of adding a new web service in one form.  
+## Edit a file
 
-Having a central and global view (a dashboard) of the web services already in the Moodle instance. The dashboard offers an easy and fast access to all the web services, and for each of them, their tokens, functions and any specific option.  
+You’ll start by editing this README file to learn how to edit a file in Bitbucket.
 
-Documentation 
+1. Click **Source** on the left side.
+2. Click the README.md link from the list of files.
+3. Click the **Edit** button.
+4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
+5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
+6. Go back to the **Source** page.
 
-Location 
------------------------------------------------------------------------------------------------
-Because there are several steps involved in setting up a web service, the web service wizard offers a one-stop form where all these steps are done. From the web service name to the new user, role, token, adding functions, etc. to create a new web service you can navigate to: 
+---
 
-Site administration > Server > Web Services > Add new web service with webservice wizard 
+## Create a file
 
-This will save you from going through all the other steps.  
+Next, you’ll add a new file to this repository.
 
-Alternatively, you can use the navigation link to the web service wizard dashboard and from there create a new web service by clicking on the “Add New” tab. 
+1. Click the **New file** button at the top of the **Source** page.
+2. Give the file a filename of **contributors.txt**.
+3. Enter your name in the empty file space.
+4. Click **Commit** and then **Commit** again in the dialog.
+5. Go back to the **Source** page.
 
-Link 
------------------------------------------------------------------------------------------------
-The link to the dashboard would look like this {YourMoodleBaseLink}/local/wswizard/dashboard.php 
+Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
 
-Features  
------------------------------------------------------------------------------------------------
-From the dashboard you also have a global view of all the web services in your Moodle site and can: 
+---
 
-Manage external services: Enable, disable, edit, delete.  
+## Clone a repository
 
-Enable/disable web service restrictions such as ability to upload/download files. 
+Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
 
-Simply manage web service tokens 
+1. You’ll see the clone button under the **Source** heading. Click that button.
+2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
+3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
+4. Open the directory you just created to see your repository’s files.
 
-Logs 
-
-Logs are found in Site administration > Server > Web Services > Web Service Wizard Logs 
-
-The link to the logs would look like this {YourMoodleBaseLink}/local/wswizard/logs.php 
-
- 
-
-Notes 
-
-Deleting a web service also deletes: its functions, and its tokens but not the roles. A role and user may be reused.   
-
-The Webservice Wizard only allows webservice authorization through tokens, as it is the recommended and most secure method to call web services externally. 
-
-The Webservice Wizard does not allow management or editing of built-in external services such as the moodle mobile web service or those created by third party plugins. 
+Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).

@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * *************************************************************************
  * *                     Web Service Wizard                               **
@@ -26,46 +27,45 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later  **
  * *************************************************************************
  * ************************************************************************ */
+defined('MOODLE_INTERNAL') || die();
 
-require_once(dirname(__FILE__) . '../../../config.php');
-use local_wswizard\web_service_wizard;
-global $CFG, $OUTPUT, $USER, $PAGE, $DB;
+function xmldb_local_wswizard_upgrade($oldversion) {
+    global $DB;
 
-require_login(1, false);
-require_admin();
+    $dbman = $DB->get_manager();
+    if ($oldversion < 2022081700) {
 
-$context = CONTEXT_SYSTEM::instance();
-$PAGE->requires->jquery();
+        // Define field username to be dropped from local_wswizard_logs.
+        $table = new xmldb_table('local_wswizard_logs');
+        $field = new xmldb_field('username');
 
-// DataTable inclusion.
-$PAGE->requires->js(
-    new moodle_url('https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js'),
-    true);
-$PAGE->requires->css(
-    new moodle_url('https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css')
-);
+        // Conditionally launch drop field username.
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+        $field = new xmldb_field('webservicename');
 
-echo \local_wswizard\Base::page(
-    $CFG->wwwroot . '/local/wswizard/dashboard.php',
-    get_string('ws_log_page_title', 'local_wswizard'),
-    get_string('ws_log_page_header', 'local_wswizard'),
-    $context);
+        // Conditionally launch drop field webservicename.
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
 
-echo $OUTPUT->header();
+        // Wswizard savepoint reached.
+        upgrade_plugin_savepoint(true, 2022081700, 'local', 'wswizard');
+    }
+    if ($oldversion < 2022081701) {
 
-// Adds Datable functionality.
-$initjs = "$(document).ready(function() { $('#logsTable').DataTable({    'order': [[ 0, 'desc' ]]});   });";
-echo html_writer::script($initjs);
+        // Define field ip to be added to local_wswizard_logs.
+        $table = new xmldb_table('local_wswizard_logs');
+        $field = new xmldb_field('ip', XMLDB_TYPE_TEXT, null, null, null, null, null, 'webservice_id');
 
-$logs = new \local_wswizard\Logs();
-$alllogs = $logs->get_all();
-// Display a date on the table, not timestamp.
-//format_logs($alllogs);
+        // Conditionally launch add field ip.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
 
-$data = [
-    'logs' => array_values($alllogs)
-];
-
-echo $OUTPUT->render_from_template("local_wswizard/logs_report", $data);
-
-echo $OUTPUT->footer();
+        // Wswizard savepoint reached.
+        upgrade_plugin_savepoint(true, 2022081701, 'local', 'wswizard');
+    }
+    return true;
+}

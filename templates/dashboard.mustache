@@ -34,7 +34,7 @@
                             <div class="d-md-none col-sm-3 mt-sm-3 mb-sm-3"><br></div>
                             <!-- adds spacing for when small screen -->
                             <div class=" mb-2 col-md-4 col-sm-7 text-sm-left">
-                                <input class=" mb-2 enablewebserviceid{{id}} webservice_enable_button" type="checkbox"
+                                <input class=" enablewebserviceid{{id}} mb-2 webservice_enable_button" type="checkbox"
                                        {{#enabled}}checked{{/enabled}} data-toggle="toggle"
                                        data-on="{{#str}}dashboard_ws_enabled, local_wswizard {{/str}}"
                                        data-off="{{#str}}dashboard_ws_not_enabled, local_wswizard {{/str}}"
@@ -46,7 +46,7 @@
                     </div>
                     <div class="d-md-none col-sm-3"></div> <!-- adds spacing for when small screen &ndash;&gt;-->
                     <div class="col-md-2 col-sm-3 mb-1">
-                        <button type="button" class=" mb-2 webserviceid{{id}} btn btn-outline-info button_size_half"
+                        <button type="button" class=" webserviceid{{id}} mb-2 btn btn-outline-info button_size_half"
                                 onclick="location.href='{{edit_link}}?ws_id={{id}}'">
                         <i class="fa fa-solid fa-pencil h4"></i>
                         <span>{{#str}} dashboard_ws_edit, local_wswizard {{/str}}</span>
@@ -56,7 +56,7 @@
                         {{! DO NOT ADD CLASS IN THE FIRST INDEX}}
                         {{! IT WILL BREAK THE AJAX CALL. ADD AT THE END  }}
                         <button type="button"
-                                class=" mb-2 webserviceid{{id}} btn webservice_delete_button btn-outline-danger button_size_half"
+                                class=" webserviceid{{id}} mb-2 btn webservice_delete_button btn-outline-danger button_size_half"
                                 value="">
                             <i class="fa fa-solid fa-trash h4"></i>
                             <span>{{#str}} dashboard_ws_delete, local_wswizard {{/str}}</span>
@@ -70,7 +70,7 @@
 
                             <h3 class="mb-2">{{#str}} dashboard_ws_can_upload, local_wswizard {{/str}}</h3>
 
-                            <input class=" mb-2 updateUploadFileswebserviceid{{id}} webservice_uploadfiles_button" type="checkbox"
+                            <input class=" updateUploadFileswebserviceid{{id}} mb-2 webservice_uploadfiles_button" type="checkbox"
                                    {{#uploadfiles}}checked{{/uploadfiles}} data-toggle="toggle"
                                    data-on="{{#str}}dashboard_ws_yes, local_wswizard {{/str}}"
                                    data-off="{{#str}}dashboard_ws_no, local_wswizard {{/str}}"
@@ -259,7 +259,7 @@
             </div> <!-- end of tab !-->
         {{/service}}
         {{^service}}
-            <h2 id="no-ws">{{#str}}  no_ws_found, local_wswizard {{/str}}</h2>
+            <h2 class="text-center">{{#str}}  no_ws_found, local_wswizard {{/str}}</h2>
         {{/service}}
     </div> <!-- end of nav content !-->
 </div> <!-- end of container  !-->

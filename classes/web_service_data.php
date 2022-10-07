@@ -18,8 +18,7 @@
  * *************************************************************************
  * *                     Web Service Wizard                               **
  * *************************************************************************
- * @package     local                                                     **
- * @subpackage  wswizard                                                  **
+ * @package     local_wswizard                                            **
  * @name        Web Service Wizard                                        **
  * @copyright   Markanyx Solutions Inc.                                   **
  * @link                                                                  **
@@ -34,8 +33,12 @@ use core\check\performance\debugging;
 require_once(dirname(__FILE__) . '../../../../config.php');
 require_login();
 
+/**
+ * Manipulates all web service data.
+ */
 class web_service_data {
     /**
+     * Sets the active protocols for the protocol given.
      * @param array $protocols
      *
      * @return string|void
@@ -62,6 +65,7 @@ class web_service_data {
     }
 
     /**
+     * Creates a webservice user.
      * @param string $username
      * @param string $email
      * @param string $firstname
@@ -101,6 +105,7 @@ class web_service_data {
     }
 
     /**
+     * Gets the capabilities from the webservice function.
      * @param array $wsfunctions
      *
      * @return array|void
@@ -124,6 +129,7 @@ class web_service_data {
     }
 
     /**
+     * Creates a webservice role.
      * @param string $fullname
      * @param string $shortname
      * @param string $description
@@ -148,6 +154,15 @@ class web_service_data {
         }
     }
 
+    /**
+     * Assigns the proper capabilities to a role.
+     * @param int   $roleid
+     * @param array $wsfunctions
+     * @param array $protocols
+     * @param int   $contextid
+     *
+     * @return bool|void
+     */
     public function assign_ws_capabilities_to_role(int $roleid, array $wsfunctions, array $protocols, int $contextid) {
         try {
             global $USER;
@@ -181,6 +196,17 @@ class web_service_data {
         }
     }
 
+    /**
+     * Sets the values of the webservice.
+     * @param $webserviceid
+     * @param $shortname
+     * @param $name
+     * @param $allowfileuploads
+     * @param $allowfiledownloads
+     * @param $isenabled
+     *
+     * @return void
+     */
     public function edit_or_create_webservice_object
     ($webserviceid, $shortname, $name, $allowfileuploads, $allowfiledownloads, $isenabled) {
         try {
@@ -227,6 +253,14 @@ class web_service_data {
         }
     }
 
+    /**
+     * Adds functions to the webservice.
+     * @param $webserviceobjectid
+     * @param $wsuserid
+     * @param $wsfunctions
+     *
+     * @return bool|void
+     */
     public function assign_functions_to_webservice($webserviceobjectid, $wsuserid, $wsfunctions) {
         try {
             global $DB, $USER;
@@ -269,6 +303,16 @@ class web_service_data {
         }
     }
 
+    /**
+     * Creates a user token for a given webservice.
+     * @param $webserviceobjectid
+     * @param $wsuserid
+     * @param $context
+     * @param $iprestriction
+     * @param $validuntil
+     *
+     * @return void
+     */
     public function create_webservice_token($webserviceobjectid, $wsuserid, $context, $iprestriction, $validuntil) {
         try {
             global $DB, $USER;
@@ -314,6 +358,13 @@ class web_service_data {
         }
     }
 
+    /**
+     * Sets the appopriate role to a given webservice.
+     * @param $roleid
+     * @param $webserviceid
+     *
+     * @return bool|void
+     */
     public function set_webservice_role($roleid, $webserviceid) {
         global $DB, $USER;
         try {

@@ -29,7 +29,7 @@
  * ************************************************************************ */
 
 require_once(dirname(__FILE__) . '../../../config.php');
-//require_login();
+require_login();
 $action = required_param('action', PARAM_TEXT);
 
 global $USER, $DB;
@@ -114,8 +114,8 @@ switch ($action)
 
     case 'enableWebservice':
         $serviceid = required_param('id', PARAM_INT);
-        $webservice = $DB->get_record('external_services', array('id' => $serviceid));
 
+        $webservice = $DB->get_record('external_services', array('id' => $serviceid));
         // Switches between enabled/disable.
         $newstate = null;
         if ($webservice->enabled) {

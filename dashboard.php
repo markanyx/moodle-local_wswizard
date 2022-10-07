@@ -74,16 +74,16 @@ echo \local_wswizard\Base::page(
     $context);
 
 echo $OUTPUT->header();
-$all_records = $DB->get_records('external_services');
-// Remove built-in webservices
+$allrecords = $DB->get_records('external_services');
+// Remove built-in webservices.
 $records = array_filter(array_map(function($r){
-    if ($r->component == ''){
+    if ($r->component == '') {
         return $r;
     }
-},$all_records));
+}, $allrecords));
 
 
-foreach ($records as $rec){
+foreach ($records as $rec) {
         $test = new web_service_wizard($rec->id);
         $rec->alltokens = array_values($test->get_tokens_from_webservice_id($rec->id));
         $rec->allFunctions = array_values($test->get_functions_from_webservice_id($rec->id));

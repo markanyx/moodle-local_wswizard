@@ -18,8 +18,7 @@
  * *************************************************************************
  * *                     Web Service Wizard                               **
  * *************************************************************************
- * @package     local                                                     **
- * @subpackage  wswizard                                                  **
+ * @package     local_wswizard                                            **
  * @name        Web Service Wizard                                        **
  * @copyright   Markanyx Solutions Inc.                                   **
  * @link                                                                  **
@@ -33,13 +32,21 @@ use local_wswizard;
 use local_wswizard\web_service_data;
 use moodleform;
 
+/**
+ * Creates a dynamic moodle form as a popup modal to add a token to a webservice.
+ */
 class add_token_to_webservice_form extends \core_form\dynamic_form {
+
+
+    /**
+     * Adds elements to the form.
+     * @return void
+     */
     public function definition() {
-        $base = new local_wswizard\Base();
         $mform = $this->_form;
 
-        $mform->addElement('hidden', 'webservice_id');
-        $mform->setType('webservice_id', PARAM_INT);
+        $mform->addElement('hidden', 'webserviceid');
+        $mform->setType('webserviceid', PARAM_INT);
 
         $base = new local_wswizard\Base();
         $wsexistingusers = $base->get_webservice_users();
@@ -110,7 +117,7 @@ class add_token_to_webservice_form extends \core_form\dynamic_form {
     public function process_dynamic_submission() {
         global $USER, $DB;
         $fromform = $this->get_data();
-        $webserviceobjectid = $fromform->webservice_id;
+        $webserviceobjectid = $fromform->webserviceid;
         $wsuserid = $fromform->ws_existing_user;
         $iprestriction = $fromform->restricted_ip;
 
@@ -162,7 +169,7 @@ class add_token_to_webservice_form extends \core_form\dynamic_form {
      */
     public function set_data_for_dynamic_submission(): void {
         $data = array();
-        $data['webservice_id'] = $this->optional_param('webservice_id', 0, PARAM_INT);
+        $data['webserviceid'] = $this->optional_param('webserviceid', 0, PARAM_INT);
         $data['context'] = \context_system::instance();
         $this->set_data($data);
     }
@@ -178,10 +185,10 @@ class add_token_to_webservice_form extends \core_form\dynamic_form {
      * @return \moodle_url
      */
     protected function get_page_url_for_dynamic_submission(): \moodle_url {
-        $webserviceid = $this->optional_param('webservice_id', null, PARAM_INT);
+        $webserviceid = $this->optional_param('webserviceid', null, PARAM_INT);
         if ($webserviceid) {
             $url = '/contentbank/view.php';
-            $params['webservice_id'] = $webserviceid;
+            $params['webserviceid'] = $webserviceid;
         } else {
             $url = '/dashboard.php#nav-' . $webserviceid;
         }
@@ -189,6 +196,13 @@ class add_token_to_webservice_form extends \core_form\dynamic_form {
         return new \moodle_url($url, $params);
     }
 
+    /**
+     * Upon submitting the form, validate the given data.
+     * @param $data
+     * @param $files
+     *
+     * @return array
+     */
     public function validation($data, $files) {
         $errors = array();
 

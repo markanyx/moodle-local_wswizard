@@ -17,8 +17,7 @@
  * *************************************************************************
  * *                     Web Service Wizard                               **
  * *************************************************************************
- * @package     local                                                     **
- * @subpackage  wswizard                                                  **
+ * @package     local_wswizard                                            **
  * @name        Web Service Wizard                                        **
  * @copyright   Markanyx Solutions Inc.                                   **
  * @link                                                                  **
@@ -39,8 +38,15 @@ require_once("$CFG->dirroot/lib/formslib.php");
 require_once("$CFG->dirroot/local/wswizard/config.php");
 require_login();
 
+/**
+ * Form for creating a webservice.
+ */
 class ws_form extends moodleform {
 
+    /**
+     * Adds elements and logic to the form.
+     * @return void
+     */
     public function definition() {
         global $CFG;
         $this->context = \context_system::instance();
@@ -166,6 +172,13 @@ class ws_form extends moodleform {
         $this->add_action_buttons();
     }
 
+    /**
+     * Upon submitting the form, validate the given data.
+     * @param $data
+     * @param $files
+     *
+     * @return array
+     */
     public function validation($data, $files) {
         global $DB;
         // Start of validation!

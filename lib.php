@@ -18,8 +18,7 @@
  * *************************************************************************
  * *                     Web Service Wizard                               **
  * *************************************************************************
- * @package     local                                                     **
- * @subpackage  wswizard                                                  **
+ * @package     local_wswizard                                            **
  * @name        Web Service Wizard                                        **
  * @copyright   Markanyx Solutions Inc.                                   **
  * @link                                                                  **
@@ -33,10 +32,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+defined('MOODLE_INTERNAL') || die();
 require_once(dirname(__FILE__) . '../../../config.php');
+
+/**
+ * Exntended navigation for the plugin.
+ * @param global_navigation $navigation
+ *
+ * @return void
+ */
 function local_wswizard_extend_navigation(global_navigation $navigation) {
-    global $DB, $USER, $PAGE;
+    global $USER;
 
     $context = context_system::instance();
     if (is_siteadmin($USER)) {
@@ -53,12 +59,3 @@ function local_wswizard_extend_navigation(global_navigation $navigation) {
         }
     }
 }
-
-// Takes an array of logs and converts timestamp to date.
-function convert_log_timestamps_to_date($logs) {
-    foreach ($logs as $log) {
-        $datetime = DateTime::createFromFormat('U', $log->timecreated);
-        $log->timecreated = $datetime->format('d-m-Y H:i:s');
-    }
-}
-

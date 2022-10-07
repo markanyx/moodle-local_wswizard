@@ -8,19 +8,15 @@
             {{#str}} ws_log_column_action, local_wswizard{{/str}}
         </th>
         <th>
-            {{#str}} ws_log_column_ws_id, local_wswizard{{/str}}
-        </th>
-        <th>
             {{#str}} ws_log_column_ws_name, local_wswizard{{/str}}
         </th>
         <th>
             {{#str}} ws_log_column_timecreated, local_wswizard{{/str}}
         </th>
         <th>
-            {{#str}} ws_log_column_createdby_id, local_wswizard{{/str}}
-        </th>
-        <th>
-            {{#str}} ws_log_column_createdby_username, local_wswizard{{/str}}
+            {{#str}} ws_log_column_createdby_user, local_wswizard{{/str}}
+        </th>  <th>
+            {{#str}} ws_log_column_ip, local_wswizard{{/str}}
         </th>
     </tr>
     </thead>
@@ -34,19 +30,16 @@
                 {{{action}}}
             </td>
             <td>
-                {{{webservice_id}}}
-            </td>
-            <td>
-                {{{webservicename}}}
+                {{{webservice}}}
             </td>
             <td>
                 {{{timecreated}}}
             </td>
             <td>
-                {{{createdby}}}
+                <a href="/user/profile.php?id={{createdby}}" target="_blank"> {{{createdby}}}</a>
             </td>
             <td>
-                <a href="/user/profile.php?id={{createdby}}">{{{username}}}</a>
+                {{{ip}}}
             </td>
         </tr>
     {{/logs}}

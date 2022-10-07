@@ -29,19 +29,19 @@
  * ************************************************************************ */
 defined('MOODLE_INTERNAL') || die();
 global $ADMIN, $CFG, $DB, $USER;
-if(is_siteadmin($USER)){
-$ADMIN->add('webservicesettings', new admin_externalpage('local_wswizard_form' ,
+if (is_siteadmin($USER)) {
+    $ADMIN->add('webservicesettings', new admin_externalpage('local_wswizard_form',
         get_string('wswizard_add_new', 'local_wswizard'), $CFG->wwwroot . '/local/wswizard/ws.php'));
-$existingwebservices = $DB->get_records('external_services');
-$dashboardroot = $CFG->wwwroot . '/local/wswizard/dashboard.php';
-$logsroot = $CFG->wwwroot . '/local/wswizard/logs.php';
-if ($existingwebservices) {
-    $dashboardroot = $CFG->wwwroot . '/local/wswizard/dashboard.php#nav-' . array_values($existingwebservices)[0]->id;
-}
-$ADMIN->add('webservicesettings', new admin_externalpage('local_wswizard     _dashboard',
+    $existingwebservices = $DB->get_records('external_services');
+    $dashboardroot = $CFG->wwwroot . '/local/wswizard/dashboard.php';
+    $logsroot = $CFG->wwwroot . '/local/wswizard/logs.php';
+    if ($existingwebservices) {
+        $dashboardroot = $CFG->wwwroot . '/local/wswizard/dashboard.php#nav-' . array_values($existingwebservices)[0]->id;
+    }
+    $ADMIN->add('webservicesettings', new admin_externalpage('local_wswizard     _dashboard',
         get_string('wswizard_dashboard', 'local_wswizard'), $dashboardroot));
 
-$ADMIN->add('webservicesettings', new admin_externalpage('local_wswizard_logs',
-    get_string('ws_log_page_title', 'local_wswizard'), $logsroot));
+    $ADMIN->add('webservicesettings', new admin_externalpage('local_wswizard_logs',
+        get_string('ws_log_page_title', 'local_wswizard'), $logsroot));
 
 }

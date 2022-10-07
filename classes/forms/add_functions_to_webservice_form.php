@@ -18,8 +18,7 @@
  * *************************************************************************
  * *                     Web Service Wizard                               **
  * *************************************************************************
- * @package     local                                                     **
- * @subpackage  wswizard                                                  **
+ * @package     local_wswizard                                            **
  * @name        Web Service Wizard                                        **
  * @copyright   Markanyx Solutions Inc.                                   **
  * @link                                                                  **
@@ -36,15 +35,18 @@ use local_wswizard\web_service_wizard;
 use Matrix\Exception;
 use moodleform;
 
+/**
+ * Creates a dynamic moodle form as a popup modal to add functions to a webservice.
+ */
 class add_functions_to_webservice_form extends \core_form\dynamic_form {
     public function definition() {
         $base = new local_wswizard\Base();
         $mform = $this->_form;
 
-        $mform->addElement('hidden', 'webservice_id');
-        $mform->setType('webservice_id', PARAM_INT);
-        $mform->addElement('hidden', 'ws_role_id');
-        $mform->setType('ws_role_id', PARAM_INT);
+        $mform->addElement('hidden', 'webserviceid');
+        $mform->setType('webserviceid', PARAM_INT);
+        $mform->addElement('hidden', 'wsroleid');
+        $mform->setType('wsroleid', PARAM_INT);
         $externalfunctions = $base->get_external_functions();
         $options = array(
             'multiple' => true,
@@ -53,6 +55,8 @@ class add_functions_to_webservice_form extends \core_form\dynamic_form {
         $mform->addElement('autocomplete', 'ws_functions',
             get_string('wsfunctions', 'local_wswizard'), $externalfunctions, $options);
         $mform->addRule('ws_functions', null, 'required');
+        // Adding spacing!
+        $mform->addElement('html', '<div style="width:100%" class="mt-5 mb-5"></div>');
     }
 
     /**
@@ -104,8 +108,8 @@ class add_functions_to_webservice_form extends \core_form\dynamic_form {
 
         $fromform = $this->get_data();
         $wsfunctions = $fromform->ws_functions;
-        $webserviceobjectid = $fromform->webservice_id;
-        $wsroleid = $fromform->ws_role_id;
+        $webserviceobjectid = $fromform->webserviceid;
+        $wsroleid = $fromform->wsroleid;
 
         // This is from ws_edit.php.
         try {
@@ -149,11 +153,11 @@ class add_functions_to_webservice_form extends \core_form\dynamic_form {
     public function set_data_for_dynamic_submission(): void {
         global $CFG, $DB;
         // Get ID.
-        $wsid = $this->optional_param('webservice_id', 0, PARAM_INT);
-        $wsroleid = $this->optional_param('ws_role_id', 0, PARAM_INT);
+        $wsid = $this->optional_param('webserviceid', 0, PARAM_INT);
+        $wsroleid = $this->optional_param('ws_roleid', 0, PARAM_INT);
         $data = array();
         if ($wsid) {
-            $data['webservice_id'] = $wsid;
+            $data['webserviceid'] = $wsid;
             $sql = "
                 SELECT
                     {external_services_functions}.functionname,
@@ -173,7 +177,7 @@ class add_functions_to_webservice_form extends \core_form\dynamic_form {
             }, $wsfunctions);
 
             $data['ws_functions'] = array_values($wsfunctionsparsed);
-            $data['ws_role_id'] = $wsroleid;
+            $data['wsroleid'] = $wsroleid;
         } else {
             $data['wsname'] = "No id was found";
         }
@@ -192,10 +196,10 @@ class add_functions_to_webservice_form extends \core_form\dynamic_form {
      * @return \moodle_url
      */
     protected function get_page_url_for_dynamic_submission(): \moodle_url {
-        $webserviceid = $this->optional_param('webservice_id', null, PARAM_INT);
+        $webserviceid = $this->optional_param('webserviceid', null, PARAM_INT);
         if ($webserviceid) {
             $url = '/contentbank/view.php';
-            $params['webservice_id'] = $webserviceid;
+            $params['webserviceid'] = $webserviceid;
         } else {
             $url = '/dashboard.php#nav-' . $webserviceid;
         }
@@ -203,6 +207,12 @@ class add_functions_to_webservice_form extends \core_form\dynamic_form {
         return new \moodle_url($url, $params);
     }
 
+    /**
+     * Gets ta list of capabilities from a webservice function.
+     * @param array $wsfunctions
+     *
+     * @return array|void
+     */
     public function get_capabilities_from_webservice_functions(array $wsfunctions) {
         global $DB;
         try {
@@ -221,6 +231,13 @@ class add_functions_to_webservice_form extends \core_form\dynamic_form {
         }
     }
 
+    /**
+     * Adds functions to a webservice
+     * @param $webserviceobjectid
+     * @param $wsfunctions
+     *
+     * @return bool|void
+     */
     public function assign_functions_to_webservice($webserviceobjectid, $wsfunctions) {
         try {
             global $DB, $USER;

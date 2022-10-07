@@ -18,8 +18,7 @@
  * *************************************************************************
  * *                     Web Service Wizard                               **
  * *************************************************************************
- * @package     local                                                     **
- * @subpackage  wswizard                                                  **
+ * @package     local_wswizard                                            **
  * @name        Web Service Wizard                                        **
  * @copyright   Markanyx Solutions Inc.                                   **
  * @link                                                                  **
@@ -35,26 +34,77 @@ require_login();
 
 use local_wswizard\Base;
 
+/**
+ * Used to gather information for the dashboard.
+ */
 class web_service_wizard {
 
+    /**
+     * @var int The id of the webservice.
+     */
     private $webserviceid;
+    /**
+     * @var string The name of the webservice.
+     */
     private $webservicename;
+    /**
+     * @var string The shortname of the webservice.
+     */
     private $webserviceshortname;
+    /**
+     * @var bool The enable status of the webservice.
+     */
     private $enabled;
+    /**
+     * @var bool The enable status of the webservice.
+     */
     private $requiredcapability;
+    /**
+     * @var array[] restricted users of webservice.
+     */
     private $restrictedusers;
+    /**
+     * @var bool The can download files status of the webservice.
+     */
     private $downloadfiles;
+    /**
+     * @var bool The can upload files status of the webservice.
+     */
     private $uploadfiles;
+    /**
+     * @var int The time the webservice was created.
+     */
     private $timecreated;
+    /**
+     * @var int The time the webservice was modified.
+     */
     private $timemodified;
+    /**
+     * @var array[] All the tokens from the webservice.
+     */
     private $tokens;
+    /**
+     * @var array[] All the functions from the webservice.
+     */
     private $functions;
-    private $username;
+    /**
+     * @var array[] All the authorised users of the webservice.
+     */
     private $authosiedusers;
+    /**
+     * @var array[] All the protocols from the webservice.
+     */
     private $protocols;
+    /**
+     * @var array[] The role id for the webservice.
+     */
     private $roleid;
 
 
+    /**
+     * Gets all the information needed for a webservice.
+     * @param $id
+     */
     public function __construct($id = null) {
         $this->get_service_by_id($id);
         $this->get_functions_from_webservice_id($id);
@@ -65,6 +115,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the web service id.
      * @return mixed
      */
     public function get_ws_id() {
@@ -72,6 +123,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the webservice name.
      * @return mixed
      */
     public function get_webservice_name() {
@@ -79,6 +131,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the webservice's shortname.
      * @return mixed
      */
     public function get_webservice_shortname() {
@@ -86,6 +139,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the webservice's enable status.
      * @return mixed
      */
     public function get_enabled() {
@@ -93,6 +147,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the webservice capabilities.
      * @return mixed
      */
     public function get_required_capability() {
@@ -100,6 +155,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the webservice's restricted users.
      * @return mixed
      */
     public function get_restricted_users() {
@@ -107,6 +163,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the webservice's download files status.
      * @return mixed
      */
     public function get_download_files() {
@@ -114,6 +171,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the webservice's upload files status.
      * @return mixed
      */
     public function get_upload_files() {
@@ -121,6 +179,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the webservice's time created.
      * @return mixed
      */
     public function get_time_created() {
@@ -128,6 +187,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets the webservice's time modified.
      * @return mixed
      */
     public function get_time_modified() {
@@ -135,6 +195,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets all the user tokens assigned to webservice.
      * @return mixed
      */
     public function get_tokens() {
@@ -142,6 +203,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets all the webservice functions assigned to it.
      * @return mixed
      */
     public function get_functions() {
@@ -149,13 +211,7 @@ class web_service_wizard {
     }
 
     /**
-     * @return mixed
-     */
-    public function get_username() {
-        return $this->username;
-    }
-
-    /**
+     * Gets all authorised users for webservice.
      * @return mixed
      */
     public function get_authosied_users() {
@@ -163,11 +219,22 @@ class web_service_wizard {
     }
 
 
+    /**
+     * Gets record of all external_services table.
+     * @return mixed
+     */
     public function get_all_services() {
         global $DB;
         return $DB->get_records('external_services');
     }
 
+
+    /**
+     * Gathers information from external_services table for a given id.
+     * @param $id
+     *
+     * @return void
+     */
     private function get_service_by_id($id) {
         global $DB;
         $data = $DB->get_record('external_services', array('id' => $id));
@@ -184,6 +251,12 @@ class web_service_wizard {
         $this->uploadfiles = $data->uploadfiles;
     }
 
+    /**
+     * Gets all the tokens associated to a webservice.
+     * @param $webserviceid
+     *
+     * @return array[]
+     */
     public function get_tokens_from_webservice_id($webserviceid) {
         global $DB;
         $this->tokens = $DB->get_records('external_tokens', array('externalserviceid' => $webserviceid));
@@ -203,6 +276,12 @@ class web_service_wizard {
         return $this->tokens;
     }
 
+    /**
+     * Gets all the functions associated to a webservice.
+     * @param $webserviceid
+     *
+     * @return array[]
+     */
     public function get_functions_from_webservice_id($webserviceid) {
         global $DB, $CFG;
 
@@ -243,16 +322,34 @@ class web_service_wizard {
         return $this->functions;
     }
 
+    /**
+     * Calls the user table for a given user id.
+     * @param $userid
+     *
+     * @return void
+     */
     public function get_user_by_id($userid) {
         global $DB;
         $DB->get_record('user', array('id' => $userid));
     }
 
+    /**
+     * Gets the username of a user from their user id.
+     * @param $userid
+     *
+     * @return mixed
+     */
     public function get_username_from_id($userid) {
         global $DB;
         return $DB->get_record('user', array('id' => $userid), 'username')->username;
     }
 
+    /**
+     * Finds all authorised users for a webservice.
+     * @param $webserviceid
+     *
+     * @return array[]
+     */
     public function get_authorised_users_from_ws_id($webserviceid) {
         global $DB;
 
@@ -269,6 +366,7 @@ class web_service_wizard {
     }
 
     /**
+     * Gets protocols.
      * @return mixed
      */
     public function get_protocols() {
@@ -276,12 +374,20 @@ class web_service_wizard {
     }
 
     /**
+     * Returns role id.
      * @return mixed
      */
     public function get_role_id() {
         return $this->roleid;
     }
 
+
+    /**
+     * Get the role name from a role id.
+     * @param $id
+     *
+     * @return false
+     */
     public function get_role_name_from_id($id) {
         global $DB;
         $record = $DB->get_record('role', ['id' => $id]);
@@ -293,6 +399,12 @@ class web_service_wizard {
         return false;
     }
 
+    /**
+     * Gets the role for the webservice.
+     * @param $webserviceid
+     *
+     * @return array[]|void
+     */
     private function get_webservice_role($webserviceid) {
         global $DB;
         $role = $DB->get_record('local_wswizard_ws_role', ['webservice_id' => $webserviceid], 'role_id');
@@ -304,6 +416,12 @@ class web_service_wizard {
         }
     }
 
+    /**
+     * Gets all the protocols for a given webservice.
+     * @param $webserviceid
+     *
+     * @return void
+     */
     public function get_webservice_protocols_from_webservice($webserviceid) {
         global $DB;
         $protocols = array();

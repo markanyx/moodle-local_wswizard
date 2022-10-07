@@ -29,16 +29,16 @@
  * ************************************************************************ */
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Web Service Wizard';
-$string['wswizard'] = 'Web Service Wizard';
+$string['pluginname'] = 'Web service wizard';
+$string['wswizard'] = 'Web service wizard';
 $string['wswizard_add_new'] = 'Add new web service with webservice wizard';
 $string['wswizard_dashboard'] = 'Web services dashboard';
 
 $string['protocolsheader'] = 'Protocols';
 $string['protocols'] = 'Please choose at least one protocol to activate';
-$string['wsuserheader'] = 'Web Service user';
-$string['wsuserchoice'] = 'Please choose if you will select an existing user or create a new one for this Web Service';
-$string['selectwsuser'] = 'Please choose a user for the Web Service';
+$string['wsuserheader'] = 'Web service user';
+$string['wsuserchoice'] = 'Please choose if you will select an existing user or create a new one for this web service';
+$string['selectwsuser'] = 'Please choose a user for the web service';
 
 $string['username'] = 'Username';
 $string['email'] = 'Email';
@@ -46,8 +46,8 @@ $string['firstname'] = 'Firstname';
 $string['lastname'] = 'Lastname';
 
 $string['role_header'] = 'Web service role';
-$string['ws_role_select'] = 'Please choose if you will select an existing role or create a new one for this Web Service';
-$string['existingroles'] = 'Please choose a role for the user of this Web Service';
+$string['ws_role_select'] = 'Please choose if you will select an existing role or create a new one for this web service';
+$string['existingroles'] = 'Please choose a role for the user of this web service';
 
 $string['rolename'] = 'Please enter the role name';
 $string['shortname'] = 'Please enter the role shortname';
@@ -55,15 +55,15 @@ $string['description'] = 'Please enter a description for the role';
 
 
 $string['capabilities_header'] = 'Web service capabilities';
-$string['capabilities'] = 'Please choose the list of capabilities for this Web service';
+$string['capabilities'] = 'Please choose the list of capabilities for this web service';
 
 $string['wsheader'] = 'Web service';
-$string['wsname'] = 'Please enter the Web Service name';
-$string['wsshortname'] = 'Please enter the Web Service shortname';
-$string['wsoptions'] = 'Please select any applicable options for this Web Service';
+$string['wsname'] = 'Please enter the web service name';
+$string['wsshortname'] = 'Please enter the web service shortname';
+$string['wsoptions'] = 'Please select any applicable options for this web service';
 
-$string['functionsheader'] = 'Web Service functions';
-$string['wsfunctions'] = 'Please choose the list of functions for this Web service';
+$string['functionsheader'] = 'Web service functions';
+$string['wsfunctions'] = 'Please choose the list of functions for this web service';
 $string['ws_form_heading'] = 'Create a new webservice user/token pair';
 $string['unexpected_error'] = 'An error has occured, please try again.';
 
@@ -72,24 +72,24 @@ $string['dashboard_token_title'] = 'Tokens';
 $string['dashboard_ws_name'] = 'Name:';
 $string['dashboard_ws_shortname'] = 'Shortname:';
 $string['dashboard_ws_enabled'] = 'Enabled';
-$string['dashboard_ws_not_enabled'] = 'Not Enabled';
-$string['dashboard_ws_edit'] = 'Edit Webservice';
-$string['dashboard_ws_delete'] = 'Delete Webservice';
-$string['dashboard_ws_can_upload'] = 'Can Upload Files:';
+$string['dashboard_ws_not_enabled'] = 'Not enabled';
+$string['dashboard_ws_edit'] = 'Edit webservice';
+$string['dashboard_ws_delete'] = 'Delete webservice';
+$string['dashboard_ws_can_upload'] = 'Can upload files:';
 $string['dashboard_ws_yes'] = 'Yes';
 $string['dashboard_ws_no'] = 'No';
 $string['dashboard_ws_none'] = 'None';
-$string['dashboard_ws_authorised_users'] = 'Webservice User:';
-$string['dashboard_ws_can_download'] = 'Can Download Files:';
-$string['dashboard_ws_required_capability'] = 'Required Capability:';
-$string['dashboard_ws_add_new'] = 'Add New';
+$string['dashboard_ws_authorised_users'] = 'Primary user:';
+$string['dashboard_ws_can_download'] = 'Can download files:';
+$string['dashboard_ws_required_capability'] = 'Required capability:';
+$string['dashboard_ws_add_new'] = 'Add new';
 $string['dashboard_ws_role'] = 'Role:';
 
 
 $string['dashboard_ws_token_table_column_token'] = 'Token';
 $string['dashboard_ws_token_table_column_user'] = 'User';
-$string['dashboard_ws_token_table_column_ip_restriction'] = 'IP Restriction';
-$string['dashboard_ws_token_table_column_valid_until'] = 'Valid Until';
+$string['dashboard_ws_token_table_column_ip_restriction'] = 'IP restriction';
+$string['dashboard_ws_token_table_column_valid_until'] = 'Valid until';
 $string['dashboard_ws_token_table_column_creator'] = 'Creator';
 $string['dashboard_ws_token_table_column_actions'] = 'Actions';
 $string['dashboard_ws_token_table_no_data'] = 'No tokens to display';
@@ -104,7 +104,7 @@ $string['dashboard_ws_functions_table_no_data'] = 'No functions to display';
 
 // Dashboard Modal!
 $string['dashboard_modal_delete'] = 'Delete';
-$string['dashboard_modal_change_state'] = 'Change State';
+$string['dashboard_modal_change_state'] = 'Change state';
 $string['dashboard_delete_token_title'] = 'Confirmation';
 $string['dashboard_delete_token_body'] = 'Do you really want to delete this web service token?';
 $string['dashboard_delete_function_title'] = 'Confirmation';
@@ -114,7 +114,7 @@ $string['dashboard_delete_webservice_body'] = 'Do you really want to delete this
 $string['dashboard_update_state_title'] = 'Confirmation';
 $string['dashboard_update_state_body'] = 'Do you really want to change the state of this web service?';
 $string['no_ws_found'] = 'No webservices found';
-$string['additional_options'] = 'Additional Options';
+$string['additional_options'] = 'Additional options';
 $string['file_permissions'] = 'Webservice file permissions';
 $string['allow_file_uploads'] = "Allow file uploads";
 $string['allow_file_downloads'] = "Allow file downloads";
@@ -154,17 +154,24 @@ $string['ws_log_update_webservice'] = 'Updated webservice';
 $string['ws_log_set_webservice_role'] = 'Set webservice role with id {$a}';
 
 // Log Table!
-$string['ws_log_page_title'] = 'Web Service Wizard Logs';
-$string['ws_log_page_header'] = 'Web Service Wizard Logs';
-$string['ws_log_column_id'] = 'ID';
+$string['ws_log_page_title'] = 'Web service wizard logs';
+$string['ws_log_page_header'] = 'Web service wizard logs';
+$string['ws_log_column_id'] = 'Id';
 $string['ws_log_column_action'] = 'Action';
-$string['ws_log_column_ws_id'] = 'Webservice ID';
-$string['ws_log_column_ws_name'] = 'Webservice Name';
-$string['ws_log_column_timecreated'] = 'Time Created';
-$string['ws_log_column_createdby_id'] = 'Created By ID';
-$string['ws_log_column_createdby_username'] = 'Created By Username';
+$string['ws_log_column_ws_id'] = 'Webservice id';
+$string['ws_log_column_ws_name'] = 'Webservice name';
+$string['ws_log_column_timecreated'] = 'Time created';
+$string['ws_log_column_createdby_id'] = 'Created by ID';
+$string['ws_log_column_createdby_user'] = 'Created by';
+$string['ws_log_column_ip'] = 'IP address';
 
 // Capability!
 $string['ws_does_not_have_capability'] = 'Sorry, you do not have the required local_wswizard:use capability to view this page.';
+
+//Privacy.
+$string['privacy:metadata:local_wswizard_logs:createdby'] = 'The userid of the user who is responsible for the logged action';
+$string['privacy:metadata:local_wswizard_logs:ip'] = 'The IP address of the user who is responsible for the logged action';
+$string['privacy:metadata:local_wswizard_logs:webservice_id'] = 'The web service relevant to the logged action';
+$string['privacy:metadata:local_wswizard_logs'] = 'Log table for every action performed through the web service wizard';
 
 

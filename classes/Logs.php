@@ -18,8 +18,7 @@
  * *************************************************************************
  * *                     Web Service Wizard                               **
  * *************************************************************************
- * @package     local                                                     **
- * @subpackage  wswizard                                                  **
+ * @package     local_wswizard                                            **
  * @name        Web Service Wizard                                        **
  * @copyright   Markanyx Solutions Inc.                                   **
  * @link                                                                  **
@@ -29,22 +28,43 @@
  * ************************************************************************ */
 
 namespace local_wswizard;
+
+/**
+ * Handles the logs.
+ */
 class Logs {
 
+    /**
+     * @var int The id of the log.
+     */
     private $id;
+    /**
+     * @var id The user's id of the log.
+     */
     private $userid;
+    /**
+     * @var string The action performed of the log.
+     */
     private $action;
+    /**
+     * @var string The user's IP for the log.
+     */
     private $ip;
+    /**
+     * @var int The time the log took place.
+     */
     private $timecreated;
 
+    /**
+     * Constructor of class.
+     */
     public function __construct() {
     }
 
     /**
+     * Inserts the log to database.
+     * @param type $dataobject
      *
-     * @param type              $dataobject
-     *
-     * @global type             $USER
      * @global \moodle_database $DB
      */
     public function insert($dataobject) {
@@ -53,42 +73,69 @@ class Logs {
         // Get webservice name.
         $dataobject['webservicename'] = $DB->get_record(
             'external_services',
-            array('id'=>$dataobject['webservice_id'])
+            array('id' => $dataobject['webservice_id'])
         )->name;
 
         // Get user's username.
         $dataobject['username'] = $DB->get_record(
             'user',
-            array('id'=>$dataobject['createdby'])
+            array('id' => $dataobject['createdby'])
         )->username;
-
+        $dataobject['ip'] = $this->get_client_ip();
         // Add to log table.
         $DB->insert_record('local_wswizard_logs', $dataobject);
     }
 
     /**
-     *
+     * Gets all the logs for display.
      * @return type
      * @global \moodle_database $DB
      */
     public function get_all() {
         global $DB;
-        $logs = $DB->get_records('local_wswizard_logs', array('archived' => 0), 'id DESC');
+        $logs = $DB->get_records('local_wswizard_logs');
+        $this->format_logs($logs);
         return $logs;
     }
 
     /**
-     * @return void
-     * @throws \dml_exception
+     * Gets the user's IP.
+     * @return string
      */
-    public function archive() {
-        global $DB;
-        // A year is 3600 * 24 * 365.
-        $year = 31556736;
-        $now = time();
-        $yearago = $now - $year;
-        $sql = 'UPDATE {local_wswizard_logs} SET archived = ' . 1 . ' WHERE timecreated > ?';
-        $DB->execute($sql, array($yearago));
+    private function get_client_ip() {
+        $ipaddress = '';
+        if (getenv('HTTP_CLIENT_IP')) {
+            $ipaddress = getenv('HTTP_CLIENT_IP');
+        } else if (getenv('HTTP_X_FORWARDED_FOR')) {
+            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+        } else if (getenv('HTTP_X_FORWARDED')) {
+            $ipaddress = getenv('HTTP_X_FORWARDED');
+        } else if (getenv('HTTP_FORWARDED_FOR')) {
+            $ipaddress = getenv('HTTP_FORWARDED_FOR');
+        } else if (getenv('HTTP_FORWARDED')) {
+            $ipaddress = getenv('HTTP_FORWARDED');
+        } else if (getenv('REMOTE_ADDR')) {
+            $ipaddress = getenv('REMOTE_ADDR');
+        } else {
+            $ipaddress = 'UNKNOWN';
+        }
+        return $ipaddress;
     }
 
+    /**
+     * Takes an array of logs and converts timestamp to date.
+     * @param $logs
+     *
+     * @return void
+     */
+    public function format_logs($logs) {
+        global $DB;
+        foreach ($logs as $log) {
+            $log->timecreated = date('Y-m-d H:i', $log->timecreated);
+            $ws = $DB->get_record('external_services', ['id' => $log->webservice_id]);
+            $log->webservice = $ws->name;
+            $user = user_get_users_by_id([$log->createdby]);
+            $log->createdby = fullname(array_pop($user));
+        }
+    }
 }
