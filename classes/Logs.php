@@ -74,7 +74,7 @@ class Logs {
         $dataobject['webservicename'] = $DB->get_record(
             'external_services',
             array('id' => $dataobject['webservice_id'])
-        )->name;
+        );
 
         // Get user's username.
         $dataobject['username'] = $DB->get_record(
