@@ -30,9 +30,6 @@ namespace local_wswizard;
 
 use core\check\performance\debugging;
 
-require_once(dirname(__FILE__) . '../../../../config.php');
-require_login();
-
 /**
  * Manipulates all web service data.
  */

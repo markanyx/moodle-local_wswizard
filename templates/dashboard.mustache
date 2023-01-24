@@ -9,7 +9,7 @@
                 </li>
             {{/service}}
             <li class="nav-item">
-                <a class="nav-link" id="nav-createnew-tab" href="/local/wswizard/ws.php" aria-selected=""><i
+                <a class="nav-link" id="nav-createnew-tab" href="{{add_link}}" aria-selected=""><i
                         class="fa fa-solid fa-plus"></i> {{#str}}
                     dashboard_ws_add_new, local_wswizard {{/str}}</a>
             </li>
@@ -84,16 +84,16 @@
                             <h3>{{#str}} dashboard_ws_authorised_users, local_wswizard {{/str}}</h3>
 
                             <!--                                 If there are authenticated users, have the scroll display-->
-                            {{#hasAuthUsers}}
+                            {{#hasauthusers}}
                                 <div class="addScroll ml-5 w-50">
-                                    {{#authUsers}}
+                                    {{#authusers}}
                                         <h4><a href="/user/profile.php?id={{userid}}">{{auth_username}}</a></h4>
-                                    {{/authUsers}}
+                                    {{/authusers}}
                                 </div>
-                            {{/hasAuthUsers}}
+                            {{/hasauthusers}}
 
-                            {{^hasAuthUsers}}<h3 class="text-danger ml-2">   {{#str}}
-                                dashboard_ws_no, local_wswizard {{/str}}</h3>{{/hasAuthUsers}}
+                            {{^hasauthusers}}<h3 class="text-danger ml-2">   {{#str}}
+                                dashboard_ws_no, local_wswizard {{/str}}</h3>{{/hasauthusers}}
                         </div>
                     </div>
                     <div class="w-100"></div>
@@ -122,8 +122,8 @@
 <!--                            </h3>-->
                             <div class="h3">
                                 {{#str}} dashboard_ws_role, local_wswizard {{/str}}
-                                {{#role_name}}<a href="/admin/roles/define.php?action=view&roleid={{ws_role_id}}">{{role_name}}</a>{{/role_name}}
-                                {{^role_name}}None{{/role_name}}
+                                {{#rolename}}<a href="/admin/roles/define.php?action=view&roleid={{wsroleid}}">{{rolename}}</a>{{/rolename}}
+                                {{^rolename}}{{#str}} dashboard_ws_none, local_wswizard {{/str}}{{/rolename}}
                             </div>
 
 
@@ -164,14 +164,14 @@
                                     </button>
                                 </th>
                                 <td class="border-0"></td>
-                                <td><a href="/user/profile.php?id={{userid}}">{{username}}</a></td>
+                                <td><a href="{{userurl}}">{{username}}</a></td>
                                 <td>
                                     {{#iprestriction}}{{iprestriction}}{{/iprestriction}}
                                     {{^iprestriction}}<span class="text-danger">{{#str}}
                                         dashboard_ws_none, local_wswizard {{/str}}</span>{{/iprestriction}}
                                 </td>
                                 <td>{{validuntil}}</td>
-                                <td><a href="/user/profile.php?id={{creatorid}}">{{creatorName}}</a></td>
+                                <td><a href="{{creatorurl}}">{{creatorname}}</a></td>
                                 <td class="text-center">
                                     {{! DO NOT ADD CLASS IN THE FIRST INDEX}}
                                     {{! IT WILL BREAK THE AJAX CALL. ADD AT THE END  }}
@@ -201,7 +201,7 @@
                 {{! Table Function }}
                 <div class="name_display_same_line">
                     <div class="h1">{{#str}} dashboard_ws_functions, local_wswizard {{/str}}</div>
-                    <a id="add_function_button" href="javascript:;" data-id="{{id}}" data-roleid="{{ws_role_id}}">
+                    <a id="add_function_button" href="javascript:;" data-id="{{id}}" data-roleid="{{wsroleid}}">
                         <i class="h4 fa fa-solid fa-plus"></i>
                         <span class="h3">{{#str}}  dashboard_ws_add_new, local_wswizard {{/str}}</span>
                     </a>
@@ -221,7 +221,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {{#allFunctions}}
+                        {{#allfunctions}}
                             <tr>
                                 <td class="text-break">{{functionname}}</td>
                                 <td class="text-break">
@@ -245,14 +245,14 @@
                                     </button>
                                 </td>
                             </tr>
-                        {{/allFunctions}}
-                        {{^allFunctions}}
+                        {{/allfunctions}}
+                        {{^allfunctions}}
                             <tr>
                                 <td colspan="4" class="text-center text-danger">{{#str}}
                                     dashboard_ws_functions_table_no_data, local_wswizard {{/str}}</td>
                             </tr>
 
-                        {{/allFunctions}}
+                        {{/allfunctions}}
                         </tbody>
                     </table>
                 </div>

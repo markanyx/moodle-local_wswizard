@@ -30,6 +30,7 @@
 
 require_once(dirname(__FILE__) . '../../../config.php');
 require_login();
+require_admin();
 $CFG->pluginlocal = 'wswizard';
 $CFG->pluginlocalwww = $CFG->wwwroot . '/local/' . $CFG->pluginlocal;
 $CFG->pluginlocalscript = '/local/' . $CFG->pluginlocal . '/jquery/';

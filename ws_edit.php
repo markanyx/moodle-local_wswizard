@@ -107,13 +107,16 @@ if ($mform->is_cancelled()) {
         $datacontroller = new web_service_data();
         // Get or create a user.
         $fromform->create_webservice_user == 0 ? $wsuserid = $fromform->ws_existing_user
-            : $wsuserid = $datacontroller->create_ws_user($fromform->username, $fromform->email, $fromform->firstname, $fromform->lastname);
+            : $wsuserid = $datacontroller->create_ws_user($fromform->username, $fromform->email,
+                                                $fromform->firstname, $fromform->lastname);
 
         // Get or create ws role depending on the form input.
         $fromform->ws_role_select == 0 ? $wsroleid = $fromform->ws_existing_role
-            : $wsroleid = $datacontroller->create_webservice_role($fromform->role_full_name, $fromform->role_short_name, $fromform->role_description);
+            : $wsroleid = $datacontroller->create_webservice_role($fromform->role_full_name,
+                                                $fromform->role_short_name, $fromform->role_description);
         // Assign capabilities for functions to role.
-        $datacontroller->assign_ws_capabilities_to_role($wsroleid, $fromform->ws_functions, $fromform->protocols, $context->id);
+        $datacontroller->assign_ws_capabilities_to_role($wsroleid, $fromform->ws_functions,
+                                                $fromform->protocols, $context->id);
 
         // Assign the role to the user.
         role_assign($wsroleid, $wsuserid, $context->id);
@@ -121,7 +124,8 @@ if ($mform->is_cancelled()) {
         // Create or get webservice.
         $webserviceobjectid
             = $datacontroller->edit_or_create_webservice_object($fromform->ws_id, $fromform->wsshortname,
-            $fromform->wsname, $fromform->allow_file_uploads, $fromform->allow_file_uploads, $fromform->is_enabled);
+                                    $fromform->wsname, $fromform->allow_file_uploads,
+                                    $fromform->allow_file_uploads, $fromform->is_enabled);
 
         // Set webservice role.
         $datacontroller->set_webservice_role($wsroleid, $wsid);
@@ -157,7 +161,10 @@ if ($wsid) {
     $data['wsshortname'] = $webservice->get_webservice_shortname();
 
     $data['protocols'] = $webservice->get_protocols();
-//    $data['ws_existing_user'] = array_values($webservice->get_authorised_users_from_ws_id($webservice->get_ws_id()))[0]->id;
+    /*
+        $data['ws_existing_user'] = array_values($webservice->get_authorised_users_from_ws_id(
+                                                  $webservice->get_ws_id()))[0]->id;
+    */
     $webserviceusers = $webservice->get_authosied_users();
     $webserviceusersparsed = array_map(function ($wsuser) {
         return $wsuser->userid;

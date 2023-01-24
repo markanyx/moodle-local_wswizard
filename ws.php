@@ -101,14 +101,17 @@ if ($mform->is_cancelled()) {
 
         // Get or create a user.
         $fromform->create_webservice_user == 0 ? $wsuserid = $fromform->ws_existing_user
-            : $wsuserid = $datacontroller->create_ws_user($fromform->username, $fromform->email, $fromform->firstname, $fromform->lastname);
+            : $wsuserid = $datacontroller->create_ws_user($fromform->username, $fromform->email,
+                                                $fromform->firstname, $fromform->lastname);
 
         // Get or create ws role depending on the form input.
         $fromform->ws_role_select == 0 ? $wsroleid = $fromform->ws_existing_role
-            : $wsroleid = $datacontroller->create_webservice_role($fromform->role_full_name, $fromform->role_short_name, $fromform->role_description);
+            : $wsroleid = $datacontroller->create_webservice_role($fromform->role_full_name,
+                                                $fromform->role_short_name, $fromform->role_description);
 
         // Assign capabilities for functions to role.
-        $datacontroller->assign_ws_capabilities_to_role($wsroleid, $fromform->ws_functions, $fromform->protocols, $context->id);
+        $datacontroller->assign_ws_capabilities_to_role($wsroleid, $fromform->ws_functions,
+                                                $fromform->protocols, $context->id);
 
         // Assign the role to the user.
         role_assign($wsroleid, $wsuserid, $context->id);
@@ -135,7 +138,8 @@ if ($mform->is_cancelled()) {
             $validuntildate = null;
         }
         // Create token.
-        $token = $datacontroller->create_webservice_token($webserviceobjectid, $wsuserid, $context, $fromform->restricted_ip, $validuntildate);
+        $token = $datacontroller->create_webservice_token($webserviceobjectid, $wsuserid,
+                                        $context, $fromform->restricted_ip, $validuntildate);
 
         ($webserviceobjectid > 0)
             ?

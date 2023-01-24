@@ -31,7 +31,7 @@
 namespace local_wswizard;
 
 
-// TO DO: Change this into a Singleton and get rid of static functions.
+
 use core\notification;
 
 

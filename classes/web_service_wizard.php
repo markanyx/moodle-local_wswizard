@@ -29,9 +29,6 @@
 
 namespace local_wswizard;
 
-require_once(dirname(__FILE__) . '../../../../config.php');
-require_login();
-
 use local_wswizard\Base;
 
 /**
@@ -258,14 +255,15 @@ class web_service_wizard {
      * @return array[]
      */
     public function get_tokens_from_webservice_id($webserviceid) {
-        global $DB;
+        global $DB, $CFG;
         $this->tokens = $DB->get_records('external_tokens', array('externalserviceid' => $webserviceid));
 
         // Get user and creator of token.
         foreach ($this->tokens as $tok) {
             $tok->username = $this->get_username_from_id($tok->userid);
-            $tok->creatorName = $this->get_username_from_id($tok->creatorid);
-
+            $tok->creatorname = $this->get_username_from_id($tok->creatorid);
+            $tok->userurl = $CFG->wwwroot."/user/profile.php?id=$tok->userid";
+            $tok->creatorurl = $CFG->wwwroot."/user/profile.php?id=$tok->creatorid";
             // Checks if there is an expiration date.
             if ($tok->validuntil > 0) {
                 $tok->validuntil = date('d F Y', $tok->validuntil);
@@ -354,7 +352,6 @@ class web_service_wizard {
         global $DB;
 
         $this->authosiedusers = $DB->get_records('external_services_users', array('externalserviceid' => $webserviceid));
-
         // Get user and creator of token.
         foreach ($this->authosiedusers as $tok) {
             $tok->auth_username = $this->get_username_from_id($tok->userid);

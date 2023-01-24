@@ -86,11 +86,11 @@ $records = array_filter(array_map(function($r){
 foreach ($records as $rec) {
         $test = new web_service_wizard($rec->id);
         $rec->alltokens = array_values($test->get_tokens_from_webservice_id($rec->id));
-        $rec->allFunctions = array_values($test->get_functions_from_webservice_id($rec->id));
-        $rec->authUsers = array_values($test->get_authorised_users_from_ws_id($rec->id));
-        $rec->hasAuthUsers = count($rec->authUsers); // For mustache to display specific div.
-        $rec->ws_role_id = $test->get_role_id();
-        $rec->role_name = $test->get_role_name_from_id($rec->ws_role_id);
+        $rec->allfunctions = array_values($test->get_functions_from_webservice_id($rec->id));
+        $rec->authusers = array_values($test->get_authorised_users_from_ws_id($rec->id));
+        $rec->hasauthusers = count($rec->authusers); // For mustache to display specific div.
+        $rec->wsroleid = $test->get_role_id();
+        $rec->rolename = $test->get_role_name_from_id($rec->wsroleid);
 
 }
 $records = array_values($records);
@@ -103,7 +103,8 @@ if ($records[0]) {
 
 $data = [
     'service' => $records,
-    'edit_link' => new moodle_url('/local/wswizard/ws_edit.php')
+    'edit_link' => new moodle_url('/local/wswizard/ws_edit.php'),
+    'add_link' => new moodle_url('/local/wswizard/ws.php')
 ];
 
 echo $OUTPUT->render_from_template("local_wswizard/dashboard", $data);

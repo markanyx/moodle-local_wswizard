@@ -168,7 +168,7 @@ $string['ws_log_column_ip'] = 'IP address';
 // Capability!
 $string['ws_does_not_have_capability'] = 'Sorry, you do not have the required local_wswizard:use capability to view this page.';
 
-//Privacy.
+// Privacy.
 $string['privacy:metadata:local_wswizard_logs:createdby'] = 'The userid of the user who is responsible for the logged action';
 $string['privacy:metadata:local_wswizard_logs:ip'] = 'The IP address of the user who is responsible for the logged action';
 $string['privacy:metadata:local_wswizard_logs:webservice_id'] = 'The web service relevant to the logged action';

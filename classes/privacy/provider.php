@@ -44,8 +44,6 @@ if (interface_exists('\core_privacy\local\request\userlist')) {
 } else {
     interface my_userlist {
     }
-
-    ;
 }
 
 class provider implements \core_privacy\local\metadata\provider,
@@ -73,7 +71,6 @@ class provider implements \core_privacy\local\metadata\provider,
      * @return  contextlist   $contextlist  The list of contexts used in this plugin.
      */
     public static function get_contexts_for_userid(int $userid): contextlist {
-        //Everything happens in the system context. $USER must be admin.
         global $DB;
         $contextlist = new contextlist();
         if ($DB->record_exists('local_wswizard_logs', ['createdby' => $userid])) {
