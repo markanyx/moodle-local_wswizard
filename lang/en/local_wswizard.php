@@ -65,7 +65,7 @@ $string['wsoptions'] = 'Please select any applicable options for this web servic
 $string['functionsheader'] = 'Web service functions';
 $string['wsfunctions'] = 'Please choose the list of functions for this web service';
 $string['ws_form_heading'] = 'Create a new webservice user/token pair';
-$string['unexpected_error'] = 'An error has occured, please try again.';
+$string['unexpected_error'] = 'An error has occurred, please try again.';
 
 // Dashboard!
 $string['dashboard_token_title'] = 'Tokens';
