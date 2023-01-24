@@ -35,7 +35,6 @@ use moodleform;
 defined('MOODLE_INTERNAL') || die();
 
 require_once("$CFG->dirroot/lib/formslib.php");
-require_once("$CFG->dirroot/local/wswizard/config.php");
 
 /**
  * Form for creating a webservice.
