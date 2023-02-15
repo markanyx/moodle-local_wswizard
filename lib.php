@@ -34,7 +34,7 @@
  */
 defined('MOODLE_INTERNAL') || die();
 require_once(dirname(__FILE__) . '../../../config.php');
-
+require_admin();
 /**
  * Exntended navigation for the plugin.
  * @param global_navigation $navigation

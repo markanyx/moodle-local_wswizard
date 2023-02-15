@@ -60,7 +60,6 @@ echo html_writer::script($initjs);
 $logs = new \local_wswizard\Logs();
 $alllogs = $logs->get_all();
 // Display a date on the table, not timestamp.
-// format_logs($alllogs);
 
 $data = [
     'logs' => array_values($alllogs)

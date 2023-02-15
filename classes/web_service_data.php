@@ -44,7 +44,6 @@ class web_service_data {
         global $CFG;
         try {
             $stringifiedprotocols = implode(',', $protocols);
-            set_config('enablewebservices', true);
             if (!isset($CFG->webserviceprotocols)) { // The config doesn't exist we add it.
                 set_config('webserviceprotocols', $stringifiedprotocols);
             } else {

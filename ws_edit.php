@@ -101,10 +101,13 @@ if ($mform->is_cancelled()) {
          * */
 
         /*
-         * check protocols, enable any unenabled protocols in Moodle configuration, return stringified protocols to insert
+         * check protocols, enable any required protocols that are disabled, return stringified protocols to insert
          * into custom web service user  data object
          */
         $datacontroller = new web_service_data();
+        set_config('enablewebservices', true);
+        $datacontroller->set_active_protocol_config($fromform->protocols);
+
         // Get or create a user.
         $fromform->create_webservice_user == 0 ? $wsuserid = $fromform->ws_existing_user
             : $wsuserid = $datacontroller->create_ws_user($fromform->username, $fromform->email,
@@ -161,10 +164,6 @@ if ($wsid) {
     $data['wsshortname'] = $webservice->get_webservice_shortname();
 
     $data['protocols'] = $webservice->get_protocols();
-    /*
-        $data['ws_existing_user'] = array_values($webservice->get_authorised_users_from_ws_id(
-                                                  $webservice->get_ws_id()))[0]->id;
-    */
     $webserviceusers = $webservice->get_authosied_users();
     $webserviceusersparsed = array_map(function ($wsuser) {
         return $wsuser->userid;
