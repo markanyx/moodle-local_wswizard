@@ -179,7 +179,7 @@ class add_functions_to_webservice_form extends \core_form\dynamic_form {
             $data['ws_functions'] = array_values($wsfunctionsparsed);
             $data['wsroleid'] = $wsroleid;
         } else {
-            $data['wsname'] = "No id was found";
+            $data['wsname'] =  get_string('noidfound', 'local_wswizard');
         }
 
         $this->set_data($data);

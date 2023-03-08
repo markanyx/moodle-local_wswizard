@@ -94,7 +94,7 @@ class ws_form extends moodleform {
         // If choose existing grab Web service users and display them in a autocomplete field with one selection only!
         $options = array(
             'multiple' => false,
-            'noselectionstring' => 'Choose an existing user from the list',
+            'noselectionstring' =>  get_string('noselectionstring', 'local_wswizard'),
         );
         $mform->addElement('autocomplete', 'ws_existing_user',
                 get_string('selectwsuser', 'local_wswizard'), $wsexistingusers, $options);

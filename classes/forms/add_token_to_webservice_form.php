@@ -54,7 +54,7 @@ class add_token_to_webservice_form extends \core_form\dynamic_form {
         // User.
         $options = array(
             'multiple' => false,
-            'noselectionstring' => 'Choose an existing user from the list',
+            'noselectionstring' =>  get_string('noselectionstring', 'local_wswizard'),
         );
         $mform->addElement('autocomplete', 'ws_existing_user',
             get_string('selectwsuser', 'local_wswizard'), $wsexistingusers, $options);

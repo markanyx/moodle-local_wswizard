@@ -119,6 +119,8 @@ $string['file_permissions'] = 'Webservice file permissions';
 $string['allow_file_uploads'] = "Allow file uploads";
 $string['allow_file_downloads'] = "Allow file downloads";
 $string['restricted_ip'] = 'Restrict IP address';
+$string['noselectionstring'] = 'Choose an existing user from the list';
+$string['noidfound'] = 'No id was found';
 
 // Form validation!
 $string['ws_nametaken'] = 'A web service with this name already exists! Please choose a new one.';
@@ -132,6 +134,9 @@ $string['add_new_functions'] = 'Add new functions';
 $string['add_expiry_date'] = 'Add an expiry date for the webservice?';
 $string['add_new_token'] = 'Add new token';
 $string['enable_web_service'] = 'Enable this webservice?';
+$string['wsnotfound'] = 'Webservice not found';
+
+
 
 // Logs!
 $string['ws_log_delete_token'] = 'Deleted token with id {$a}';

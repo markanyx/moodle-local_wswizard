@@ -155,7 +155,7 @@ if ($wsid) {
     // Get webservice info.
     $webservice = new \local_wswizard\web_service_wizard($wsid);
     if (!$webservice) {
-        throw new invalid_parameter_exception('Webservice not found');
+        throw new invalid_parameter_exception(get_string('wsnotfound', 'local_wswizard'));
     }
 
     $data = array();

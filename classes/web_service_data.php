@@ -386,6 +386,4 @@ class web_service_data {
             debugging($e->getMessage(), E_ERROR, $e->getTrace());
         }
     }
-
-
 }
