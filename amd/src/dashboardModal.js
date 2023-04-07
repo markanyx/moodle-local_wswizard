@@ -8,6 +8,7 @@ define(['jquery', 'core/modal_factory', 'core/modal_events', 'core/ajax', 'core/
         var webserviceUpdateFilesTrigger = $('.webservice_uploadfiles_button');
         var webserviceDownloadFilesTrigger = $('.webservice_downloadfiles_button');
         var wwwroot = M.cfg.wwwroot;
+        var sesskey = M.cfg.sesskey;
 
         // Tokens modal.
         ModalFactory.create({
@@ -30,7 +31,8 @@ define(['jquery', 'core/modal_factory', 'core/modal_events', 'core/ajax', 'core/
 
                     $.ajax({
                         type: "POST",
-                        url: wwwroot + "/local/wswizard/ajax.php?action=deleteToken&id=" + modal.params['tokenid'],
+                        url: wwwroot + "/local/wswizard/ajax.php?action=deleteToken&id=" + modal.params['tokenid'] + 
+						     "&sesskey=" + sesskey,
                         dataType: "json",
                         success: function() {
                             window.location.reload();
@@ -66,7 +68,8 @@ define(['jquery', 'core/modal_factory', 'core/modal_events', 'core/ajax', 'core/
                     $.ajax({
                         type: "POST",
                         url: wwwroot + "/local/wswizard/ajax.php?action=deleteFunction&id=" +
-                            modal.params['functionid'] + "&functionname=" + modal.params['functionname'],
+                            modal.params['functionid'] + "&functionname=" + modal.params['functionname'] + 
+						     "&sesskey=" + sesskey,
                         dataType: "json",
                         success: function() {
                             window.location.reload();
@@ -97,7 +100,8 @@ define(['jquery', 'core/modal_factory', 'core/modal_events', 'core/ajax', 'core/
                     e.preventDefault();
                     $.ajax({
                         type: "POST",
-                        url: wwwroot + "/local/wswizard/ajax.php?action=deleteWebservice&id=" + modal.params['webserviceid'],
+                        url: wwwroot + "/local/wswizard/ajax.php?action=deleteWebservice&id=" + modal.params['webserviceid'] + 
+						     "&sesskey=" + sesskey,
                         dataType: "json",
                         success: function(resultData) {
                             window.location.reload();
@@ -113,7 +117,7 @@ define(['jquery', 'core/modal_factory', 'core/modal_events', 'core/ajax', 'core/
                 webserviceIDString.lastIndexOf('enablewebserviceid') + 'enablewebserviceid'.length);
             $.ajax({
                 type: "POST",
-                url: wwwroot + "/local/wswizard/ajax.php?action=enableWebservice&id=" + enablewebserviceid,
+                url: wwwroot + "/local/wswizard/ajax.php?action=enableWebservice&id=" + enablewebserviceid + "&sesskey=" + sesskey,
                 dataType: "json",
                 success: function() {
                 },
@@ -126,7 +130,7 @@ define(['jquery', 'core/modal_factory', 'core/modal_events', 'core/ajax', 'core/
                 webserviceIDString.lastIndexOf('updateUploadFileswebserviceid') + 'updateUploadFileswebserviceid'.length);
             $.ajax({
                 type: "POST",
-                url: wwwroot + "/local/wswizard/ajax.php?action=updateUploadFiles&id=" + webserviceid,
+                url: wwwroot + "/local/wswizard/ajax.php?action=updateUploadFiles&id=" + webserviceid + "&sesskey=" + sesskey,
                 dataType: "json",
                 success: function() {
                 },
@@ -140,7 +144,7 @@ define(['jquery', 'core/modal_factory', 'core/modal_events', 'core/ajax', 'core/
                 webserviceIDString.lastIndexOf('downloadfileswebserviceid') + 'downloadfileswebserviceid'.length);
             $.ajax({
                 type: "POST",
-                url: wwwroot + "/local/wswizard/ajax.php?action=updateDownloadFiles&id=" + webserviceid,
+                url: wwwroot + "/local/wswizard/ajax.php?action=updateDownloadFiles&id=" + webserviceid + "&sesskey=" + sesskey,
                 dataType: "json",
                 success: function() {
                 },

@@ -30,7 +30,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2023030700;
+$plugin->version = 2023031600;
 $plugin->component = 'local_wswizard';
 $plugin->release = '0.0.1';
 $plugin->requires = 2018051700;

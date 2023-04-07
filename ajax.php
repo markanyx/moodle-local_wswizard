@@ -31,6 +31,7 @@
 require_once(dirname(__FILE__) . '../../../config.php');
 require_login();
 require_admin();
+require_sesskey();
 $action = required_param('action', PARAM_TEXT);
 
 global $USER, $DB;
