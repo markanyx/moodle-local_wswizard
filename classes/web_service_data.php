@@ -311,7 +311,8 @@ class web_service_data {
      */
     public function create_webservice_token($webserviceobjectid, $wsuserid, $context, $iprestriction, $validuntil) {
         try {
-            global $DB, $USER;
+            global $DB, $USER, $CFG;
+            require_once($CFG->dirroot . '/lib/externallib.php');
             $wstoken = null;
             $sql = "SELECT * FROM {external_tokens}
             where externalserviceid = ? and userid = ? and contextid = ? and (validuntil = 0 OR validuntil > ?)";
@@ -330,8 +331,14 @@ class web_service_data {
 
                 $wstoken = $tokenobject->token;
             } else {
-                $wstoken = external_generate_token(EXTERNAL_TOKEN_PERMANENT, $webserviceobjectid, $wsuserid,
-                    $context, $validuntil, $iprestriction);
+                $wstoken = \core_external\util::generate_token(
+                    EXTERNAL_TOKEN_PERMANENT,
+                    \core_external\util::get_service_by_id($webserviceobjectid),
+                    $wsuserid,
+                    $context,
+                    $validuntil ? $validuntil : 0,
+                    $iprestriction
+                );
 
                 // Used to get generated token id for log.
                 $record = $DB->get_record('external_tokens', array('token' => $wstoken));

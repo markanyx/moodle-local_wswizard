@@ -115,7 +115,7 @@ class add_token_to_webservice_form extends \core_form\dynamic_form {
      * @return mixed
      */
     public function process_dynamic_submission() {
-        global $USER, $DB;
+        global $USER, $DB, $CFG;
         $fromform = $this->get_data();
         $webserviceobjectid = $fromform->webserviceid;
         $wsuserid = $fromform->ws_existing_user;
@@ -128,8 +128,10 @@ class add_token_to_webservice_form extends \core_form\dynamic_form {
         $context = $this->get_context_for_dynamic_submission();
 
         try {
-            $wstoken = external_generate_token(EXTERNAL_TOKEN_PERMANENT,
-                $webserviceobjectid,
+            require_once($CFG->dirroot . '/lib/externallib.php');
+            $wstoken = \core_external\util::generate_token(
+                EXTERNAL_TOKEN_PERMANENT,
+                \core_external\util::get_service_by_id($webserviceobjectid),
                 $wsuserid,
                 $context,
                 $validuntil,
